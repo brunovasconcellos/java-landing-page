@@ -1,7 +1,7 @@
 package br.com.sgv.controller;
 
-import br.com.sgv.model.Usuario;
-import br.com.sgv.repository.UsuarioRepository;
+import br.com.sgv.model.Cliente;
+import br.com.sgv.repository.ClienteRepository;
 import jakarta.validation.Valid;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,39 +23,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private ClienteRepository clienteRepository;
 
     @GetMapping("/usuarios")
     public String listar(Model model) {
-        model.addAttribute("listaUsuarios", usuarioRepository.findAll());
+        model.addAttribute("listaUsuarios", clienteRepository.findAll());
         return "gerenciar_usuarios";
     }
 
     @GetMapping("/usuarios/novo")
     public String novo(Model model) {
-        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("usuario", new Cliente());
         return "editar_usuario";
     }
 
     @GetMapping("/usuarios/{id}")
     public String editar(@PathVariable("id") long id, Model model) {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        model.addAttribute("usuario", usuario.get());
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        model.addAttribute("usuario", cliente.get());
         return "editar_usuario";
     }
 
     @PostMapping("/usuarios")
-    public String salvar(@Valid Usuario usuario, BindingResult result) {
+    public String salvar(@Valid Cliente cliente, BindingResult result) {
         if (result.hasErrors()) {
             return "editar_usuario";
         }
-        usuarioRepository.save(usuario);
+
+        clienteRepository.save(cliente);
         return "redirect:/usuarios";
     }
 
     @DeleteMapping("/usuarios/{id}")
     public String excluir(@PathVariable("id") long id) {
-        usuarioRepository.deleteById(id);
+        clienteRepository.deleteById(id);
         return "redirect:/usuarios";
     }
 }

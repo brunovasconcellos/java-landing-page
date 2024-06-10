@@ -29,6 +29,8 @@
                 <div class="row">    
                     <div class="col">
                         <div th:if="${param.error}" class="alert alert-danger" >
+
+                            <td th:text="${param.error}"></td>
                             Nome de usuário ou senha inválidos.
                         </div>
                         <hr>
