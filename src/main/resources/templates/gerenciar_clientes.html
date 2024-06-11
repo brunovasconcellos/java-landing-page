@@ -37,7 +37,7 @@
             <td th:text="${c.empresa}"></td>
             <td th:text="${c.cnpj}"></td>
             <td th:text="${c.cep}"></td>
-            <td><a  th:href="@{/cliente/{id}(id=${c.id})}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
+            <td><a th:href="@{/cliente/{id}/{username}(id=${c.id}, username=${c.usuario.getLogin()})}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
             <td>
                 <form action="#" th:action="@{/cliente/{id}(id=${c.id})}" th:method="delete">
                     <button type="submit" id="deleteButton" class="btn btn-danger"><i class="bi bi-trash"></i></button>

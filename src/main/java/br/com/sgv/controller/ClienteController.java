@@ -33,18 +33,23 @@ public class ClienteController {
 
     @GetMapping("/cliente/novo/{username}")
     public String novo(@PathVariable("username") String username, Model model) {
-        Usuario usuario = usuarioRepository.findByLogin(username);
         ClienteForm clienteForm = new ClienteForm();
-        clienteForm.setCliente(new Cliente());
+        Usuario usuario = usuarioRepository.findByLogin(username);
         clienteForm.setUsuario(usuario);
+        clienteForm.setCliente(new Cliente());
         model.addAttribute("clienteForm",clienteForm);
         return "editar_cliente";
     }
 
-    @GetMapping("/cliente/{id}")
-    public String editar(@PathVariable("id") long id, Model model) {
+    @GetMapping("/cliente/{id}/{username}")
+    public String editar(@PathVariable("id") long id, @PathVariable("username") String username, Model model) {
+        ClienteForm clienteForm = new ClienteForm();
+        Usuario usuario = usuarioRepository.findByLogin(username);
+        clienteForm.setUsuario(usuario);
         Optional<Cliente> cliente = clienteRepository.findById(id);
-        model.addAttribute("cliente", cliente.get());
+        clienteForm.setCliente(cliente.get());
+
+        model.addAttribute("clienteForm", clienteForm);
         return "editar_cliente";
     }
 
