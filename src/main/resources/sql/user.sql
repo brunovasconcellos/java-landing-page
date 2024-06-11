@@ -17,3 +17,4 @@ INSERT INTO cliente(
     usuario_id
 ) values (1, 'ababa', '00360305000104', '20756121', 'rj', 'rj', 'ababa', 'ababa', 1);
 
+SELECT * FROM usuario;

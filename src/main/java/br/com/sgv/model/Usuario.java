@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -25,8 +25,8 @@ public abstract class Usuario {
     private String login;
     private String senha;
     private String papel;
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    private Cliente cliente;
+//    @OneToOne(optional = true, cascade = CascadeType.ALL)
+//    private Cliente cliente;
 
     public void setSenha(String senha) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

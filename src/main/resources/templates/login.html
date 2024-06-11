@@ -34,11 +34,17 @@
                             Nome de usuário ou senha inválidos.
                         </div>
                         <hr>
-                        <input type="submit" value="login" class="btn btn-primary btn-block">    
+                        <input type="submit" id="login-btn" value="login" class="btn btn-primary btn-block">
                     </div>   
                 </div>
             </div>
         </form>
-    </body>
 
+        <script>
+            document.querySelector('#login-btn').addEventListener("click", (e) => {
+                console.log('ta salvo, pae!')
+                localStorage.setItem('username', document.querySelector('#login').value);
+            })
+        </script>
+    </body>
 </html>

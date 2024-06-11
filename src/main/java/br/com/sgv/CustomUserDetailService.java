@@ -8,6 +8,7 @@ package br.com.sgv;
 import br.com.sgv.model.Cliente;
 import br.com.sgv.model.Usuario;
 import br.com.sgv.repository.ClienteRepository;
+import br.com.sgv.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,11 +24,11 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailService implements UserDetailsService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final Cliente usuario = clienteRepository.findByLogin(username);
+        final Usuario usuario = usuarioRepository.findByLogin(username);
         if (usuario == null) {
             throw new UsernameNotFoundException(username);
         }
