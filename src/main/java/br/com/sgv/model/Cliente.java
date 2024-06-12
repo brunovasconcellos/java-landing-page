@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Getter
 @Setter
-public class Cliente extends Usuario {
+public class Cliente  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,6 +21,8 @@ public class Cliente extends Usuario {
     private String estado;
     private String bairro;
     private String complemento;
+    private String login;
+    private String senha;
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     private Usuario usuario;
     @OneToMany

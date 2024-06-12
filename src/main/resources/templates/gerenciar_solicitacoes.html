@@ -17,7 +17,7 @@
         <div th:replace="header :: header">...</div>
         <div class="container" style="margin-top: 50px; margin-bottom: 20px">
             <h2 class="alert alert-dark">Gerenciar Solicitações</h2>
-            <p class="text-right"><a href="/solicitacao/novo" class="btn btn-primary"> Nova Solicitação</a></p>
+            <p class="text-right"><a href="/solicitacao/novo" id="novo-solicitacao" class="btn btn-primary"> Nova Solicitação</a></p>
         </div>
         <div class="container">
             <table id="TabelaProdutos" class="table table-striped">
@@ -49,6 +49,8 @@
         </div>
         <script>
             $(document).ready( function () {
+                document.querySelector("#novo-solicitacao").href = `/solicitacao/novo/${localStorage.getItem('username')}`
+
                 $('#TabelaProdutos').DataTable({
                     "language": {
                         "sProcessing":    "Processando...",

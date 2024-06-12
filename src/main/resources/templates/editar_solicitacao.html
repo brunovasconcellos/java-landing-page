@@ -17,30 +17,32 @@
 <div th:replace="header :: header">...</div>
 <div class="container" style="margin-top: 50px; width: 50%;">
     <h2 class="alert alert-dark">Editar Solicitação</h2>
-    <form action="#" th:action="@{/solicitacao}" th:object="${solicitacao}" method="post">
-        <input type="hidden" th:field="*{id}" id="id">
+    <form action="#" th:action="@{/solicitacao}" th:object="${solicitacaoForm}" method="post">
+        <input type="hidden" th:field="*{solicitacao.id}" id="id">
+        <input type="hidden" th:field="*{clienteId}" id="clienteId">
         <hr>
         <h3> Dados da Solicitação:</h3>
         <hr>
         <div class="row">
             <div class="col-md-12 mb-3">
                 <label for="titulo">Título: </label>
-                <input type="text" minlength="1" th:field="*{titulo}" id="titulo" placeholder="Título" class="form-control">
+                <input type="text" minlength="1" th:field="*{solicitacao.titulo}" id="titulo" placeholder="Título" class="form-control">
             </div>
-            <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="alert alert-warning"></span>
+            <span th:if="${#fields.hasErrors('solicitacao.titulo')}" th:errors="*{solicitacao.titulo}" class="alert alert-warning"></span>
         </div>
         <div class="row">
             <div class="col-md-12 mb-3">
                 <label for="descricao">Descrição:</label>
-                <textarea th:field="*{descricao}" id="descricao" placeholder="Descrição" class="form-control"></textarea>
+                <textarea th:field="*{solicitacao.descricao}" id="descricao" placeholder="Descrição" class="form-control"></textarea>
             </div>
-            <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="alert alert-warning"></span>
+            <span th:if="${#fields.hasErrors('solicitacao.descricao')}" th:errors="*{solicitacao.descricao}" class="alert alert-warning"></span>
         </div>
         <div class="row">
             <div class="col-md-12 mb-3">
                 <label for="tipo_projeto">Tipo de projeto:</label>
-                <input type="text" class="form-control" id="tipo_projeto" th:field="*{tipo_projeto}">
+                <input type="text" class="form-control" id="tipo_projeto" th:field="*{solicitacao.tipo_projeto}">
             </div>
+            <span th:if="${#fields.hasErrors('solicitacao.tipo_projeto')}" th:errors="*{solicitacao.tipo_projeto}" class="alert alert-warning"></span>
         </div>
 
         <hr class="mb-4">

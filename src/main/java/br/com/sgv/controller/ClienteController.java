@@ -41,6 +41,15 @@ public class ClienteController {
         return "editar_cliente";
     }
 
+    @GetMapping("/cliente-usuario")
+    public String novoClienteUsuario(Model model) {
+        ClienteForm clienteForm = new ClienteForm();
+        clienteForm.setUsuario(new Usuario());
+        clienteForm.setCliente(new Cliente());
+        model.addAttribute("clienteForm",clienteForm);
+        return "cadastro_cliente";
+    }
+
     @GetMapping("/cliente/{id}/{username}")
     public String editar(@PathVariable("id") long id, @PathVariable("username") String username, Model model) {
         ClienteForm clienteForm = new ClienteForm();
@@ -61,18 +70,22 @@ public class ClienteController {
 
         Cliente cliente = clienteForm.getCliente();
         long usuarioId = clienteForm.getUsuario().getId();
-        Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+        Optional<Usuario> loadedUsuario = usuarioRepository.findById(usuarioId);
         
-        if (usuario.isPresent()) {
-            cliente.setUsuario(usuario.get());
+        if (loadedUsuario.isPresent()) {
+            cliente.setLogin(loadedUsuario.get().getLogin());
+            cliente.setSenha(loadedUsuario.get().getSenha());
+            cliente.setUsuario(loadedUsuario.get());
+            clienteRepository.save(cliente);
+            return "redirect:/cliente";
         } else {
-            throw new IllegalArgumentException("Usuário não encontrado");
+            cliente.setLogin(clienteForm.getUsuario().getLogin());
+            cliente.setSenha(clienteForm.getUsuario().getSenha());
+            cliente.setUsuario(clienteForm.getUsuario());
+            clienteRepository.save(cliente);
+            return "redirect:/solicitacao";
         }
-
-        clienteRepository.save(cliente);
-        return "redirect:/cliente";
     }
-//        Usuario usuario = usuarioRepository.findById(usuarioId)
 
     @DeleteMapping("/cliente/{id}")
     public String excluir(@PathVariable("id") long id) {
